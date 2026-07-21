@@ -20,9 +20,10 @@ RUN apt-get update \
  && apt-get -y clean
 
 COPY sz_sqs_consumer.py /app/
-RUN curl -X GET \
-      --output /app/senzing_governor.py \
-      https://raw.githubusercontent.com/Senzing/governor-postgresql-transaction-id/main/senzing_governor.py
+# senzing_governor.py is vendored from the (now-private) governor-postgresql-transaction-id repo,
+# which CodeBuild clones as a secondary source and the buildspec copies into this build context —
+# so no GitHub token ever enters the image.
+COPY senzing_governor.py /app/
 
 ENV PYTHONPATH=/opt/senzing/g2/sdk/python:/app
 
