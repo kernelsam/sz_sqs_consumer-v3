@@ -14,7 +14,7 @@ USER root
 
 RUN apt-get update \
  && apt-get -y install curl python3 python3-pip python3-boto3 python3-psycopg2 \
- && python3 -mpip install orjson \
+ && python3 -mpip install --break-system-packages orjson \
  && apt-get -y remove build-essential python3-pip \
  && apt-get -y autoremove \
  && apt-get -y clean
